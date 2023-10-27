@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import 'dotenv/config.js'
 
 import * as CountryController from "./controllers/CountryController.js"
+import * as CityController from "./controllers/CityController.js"
 import * as UserController from "./controllers/UserController.js"
 import * as PictureController from "./controllers/PictureController.js"
 import {registrationSchema, authenticationSchema, validate, getCountry_Schema, setCountry_Schema} from "./utils/Validations.js";
@@ -32,6 +33,8 @@ app.get('/data/AllCountry', CountryController.getAllCountry)
 app.delete('/data/country', validate(getCountry_Schema), CountryController.deleteCountry)
 
 
+app.post('/data/city', CityController.setCity)
+app.get('/data/city', CityController.getCity)
  
 
 

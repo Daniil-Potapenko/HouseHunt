@@ -3,7 +3,7 @@ import { Schema } from 'mongoose'
  
 
 const CitySchema = new mongoose.Schema({
-    country:{ type: Schema.Types.ObjectId, ref: 'СountryModel' },
+    country:{ type: Schema.Types.ObjectId, ref: 'Сountry' },
     name:{
         type: String,
         required: true,
@@ -11,6 +11,9 @@ const CitySchema = new mongoose.Schema({
     picture:{
         type: String,
         required: true,
+    },
+    picture_coordinates:{
+        type: [Number]
     }
 },{
     timestamps: true,
