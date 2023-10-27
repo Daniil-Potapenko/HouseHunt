@@ -8,6 +8,9 @@ const СountrySchema = new mongoose.Schema({
     picture:{
         type: String,
         required: true,
+    },
+    picture_coordinates:{
+        type: [Number]
     }
 },{
     timestamps: true,

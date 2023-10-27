@@ -2,7 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import 'dotenv/config.js'
 
-import * as DataController from "./controllers/DataController.js"
+import * as CountryController from "./controllers/CountryController.js"
 import * as UserController from "./controllers/UserController.js"
 import * as PictureController from "./controllers/PictureController.js"
 import {registrationSchema, authenticationSchema, validate, getCountry_Schema, setCountry_Schema} from "./utils/Validations.js";
@@ -26,9 +26,10 @@ app.post('/uploads', PictureController.upload.single('image'), PictureController
 app.post('/user/registration', validate(registrationSchema), UserController.registration)
 app.post('/user/login', validate(authenticationSchema), UserController.login)
 
-app.post('/data/country', validate(setCountry_Schema), DataController.setCountry)
-app.get('/data/country', validate(getCountry_Schema), DataController.getCountry)
-app.delete('/data/country', validate(getCountry_Schema), DataController.deleteCountry)
+app.post('/data/country', validate(setCountry_Schema), CountryController.setCountry)
+app.get('/data/country', validate(getCountry_Schema), CountryController.getCountry)
+app.get('/data/AllCountry', CountryController.getAllCountry)
+app.delete('/data/country', validate(getCountry_Schema), CountryController.deleteCountry)
 
 
  
