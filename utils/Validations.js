@@ -68,6 +68,7 @@ export const getCountry_Schema = [
 
 export const setCountry_Schema = [
     body('picture').isURL({host_whitelist: [`${process.env.HOSTNAME}`]}),
+    body('picture_coordinates').isArray({max:2}),
     body('name').isString().isLength({min: 1, max: 30})
         .custom(async (value)=>{
             const nameExist = CountryModel.findOne({"name":value})

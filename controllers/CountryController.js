@@ -1,8 +1,4 @@
-import UserModel from "../models/User.js";
-import CityModel from "../models/City.js";
 import CountryModel from "../models/Country.js";
-import ContentModel from "../models/Content.js";
-import Residential_complexModel from "../models/Residential_complex.js";
 import 'dotenv/config.js'
 
 
@@ -10,7 +6,8 @@ export const setCountry = async (req,res) => {
     try{
         const country = new CountryModel({
             "name":req.body.name,
-            "picture":req.body.picture
+            "picture":req.body.picture,
+            "picture_coordinates":req.body.picture_coordinates
         })
 
         country.save().then(async () => {
@@ -54,6 +51,26 @@ export const getCountry = async (req,res) => {
         console.log(e)
     }
 }
+export const getAllCountry = async (req,res) => {
+    try{
+        let countrys = await CountryModel.find({})
+        
+        if (countrys=[]) {
+            res.status(404).json({ "message": "Error, countrys not found" })
+        }
+        else{
+            res.status(200).json(countrys)
+        }
+
+    }
+    catch (e) {
+        res.status(500).json({
+            "success": "false",
+            "message": "Error, pls try later"
+        })
+        console.log(e)
+    }
+}
 export const deleteCountry = async (req,res) => {
     try{
         const countryName = req.query.name
@@ -82,17 +99,3 @@ export const deleteCountry = async (req,res) => {
     }
 }
 
-
-
-export const createCity = async (req,res) => {
-    try{
-
-    }
-    catch (e) {
-        res.status(500).json({
-            "success": "false",
-            "message": "registration error, pls try later"
-        })
-        console.log(e)
-    }
-}
