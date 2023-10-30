@@ -2,7 +2,7 @@ import CountryModel from "../models/Country.js";
 import 'dotenv/config.js'
 
 
-export const setCountry = async (req,res) => {
+export const createCountry = async (req,res) => {
     try{
         const country = new CountryModel({
             "name":req.body.name,
@@ -24,7 +24,7 @@ export const setCountry = async (req,res) => {
         console.log(e)
     }
 }
-export const getCountry = async (req,res) => {
+export const findCountry = async (req,res) => {
     try{
         const countryName = req.query.name
         const countryId = req.query.id
@@ -51,7 +51,7 @@ export const getCountry = async (req,res) => {
         console.log(e)
     }
 }
-export const getAllCountry = async (req,res) => {
+export const findAllCountry = async (req,res) => {
     try{
         let countrys = await CountryModel.find({})
         

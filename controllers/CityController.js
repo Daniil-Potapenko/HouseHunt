@@ -3,7 +3,7 @@ import CountryModel from "../models/Country.js";
 import 'dotenv/config.js'
 
 
-export const setCity = async (req,res) => {
+export const createCity = async (req,res) => {
     try{
         const city = new CityModel({
             "name":req.body.name,
@@ -26,7 +26,7 @@ export const setCity = async (req,res) => {
         console.log(e)
     }
 }
-export const getCity = async (req,res) => {
+export const findCity = async (req,res) => {
     try{
         const cityName = req.query.name
         const cityId = req.query.id
@@ -53,7 +53,7 @@ export const getCity = async (req,res) => {
         console.log(e)
     }
 }
-export const getAllCityInCuntry = async (req,res) => {
+export const findAllCityInCuntry = async (req,res) => {
     try{
         const countryId = req.query.countryId
         let city = await CityModel.find({country:countryId})
