@@ -27,14 +27,14 @@ app.post('/uploads', PictureController.upload.single('image'), PictureController
 app.post('/user/registration', validate(registrationSchema), UserController.registration)
 app.post('/user/login', validate(authenticationSchema), UserController.login)
 
-app.post('/data/country', validate(setCountry_Schema), CountryController.setCountry)
-app.get('/data/country', validate(getCountry_Schema), CountryController.getCountry)
-app.get('/data/AllCountry', CountryController.getAllCountry)
+app.post('/data/country', validate(setCountry_Schema), CountryController.createCountry)
+app.get('/data/country', validate(getCountry_Schema), CountryController.findCountry)
+app.get('/data/AllCountry', CountryController.findAllCountry)
 app.delete('/data/country', validate(getCountry_Schema), CountryController.deleteCountry)
 
 
-app.post('/data/city', CityController.setCity)
-app.get('/data/city', CityController.getCity)
+app.post('/data/city', CityController.createCity)
+app.get('/data/city', CityController.findCity)
  
 
 
