@@ -53,16 +53,44 @@ export const findCity = async (req,res) => {
         console.log(e)
     }
 }
-export const findAllCityInCuntry = async (req,res) => {
+export const findAllCityInCountry = async (req,res) => {
     try{
         const countryId = req.query.countryId
         let city = await CityModel.find({country:countryId})
-        
-        if (city=[]) {
-            res.status(404).json({ "message": "Error, countrys not found" })
+        console.log(`${countryId} `)
+        console.log(`${city} `)
+
+        if (city==[]) {
+            res.status(404).json({ "message": "Error, city not found" })
         }
         else{
             res.status(200).json(city)
+        }
+    }
+    catch (e) {
+        res.status(500).json({
+            "success": "false",
+            "message": "Error, pls try later"
+        })
+        console.log(e)
+    }
+}
+export const deleteCity = async (req,res) => {
+    try{
+        const cityName = req.query.name
+        const cityId = req.query.id
+        let city 
+
+        cityName?
+            city = await  CityModel.findOneAndDelete({'name':cityName}):
+        cityId?
+            city = await  CityModel.findByIdAndDelete(cityId):{}
+   
+        if (!city) {
+            res.status(404).json({ "message": "Error, city not found" })
+        }
+        else{
+            res.status(200).json({"Status":"success"})
         }
 
     }
@@ -74,31 +102,4 @@ export const findAllCityInCuntry = async (req,res) => {
         console.log(e)
     }
 }
-// export const deleteCountry = async (req,res) => {
-//     try{
-//         const countryName = req.query.name
-//         const countryId = req.query.id
-//         let country 
-
-//         countryName?
-//             country = await  CountryModel.findOneAndDelete({'name':countryName}):
-//         countryId?
-//             country = await  CountryModel.findByIdAndDelete(countryId):{}
-   
-//         if (!country) {
-//             res.status(404).json({ "message": "Error, country not found" })
-//         }
-//         else{
-//             res.status(200).json({"Status":"success"})
-//         }
-
-//     }
-//     catch (e) {
-//         res.status(500).json({
-//             "success": "false",
-//             "message": "Error, pls try later"
-//         })
-//         console.log(e)
-//     }
-// }
 

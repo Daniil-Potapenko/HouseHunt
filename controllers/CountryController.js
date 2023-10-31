@@ -55,7 +55,7 @@ export const findAllCountry = async (req,res) => {
     try{
         let countrys = await CountryModel.find({})
         
-        if (countrys=[]) {
+        if (countrys==[]) {
             res.status(404).json({ "message": "Error, countrys not found" })
         }
         else{
