@@ -35,6 +35,9 @@ app.delete('/data/country', validate(getCountry_Schema), CountryController.delet
 
 app.post('/data/city', CityController.createCity)
 app.get('/data/city', CityController.findCity)
+app.get('/data/allCity', CityController.findAllCityInCountry)
+app.delete('/data/city', CityController.deleteCity)
+ 
  
 
 
