@@ -1,5 +1,4 @@
 import CountryModel from "../models/Country.js";
-import 'dotenv/config.js'
 
 
 export const createCountry = async (req,res) => {
@@ -12,7 +11,8 @@ export const createCountry = async (req,res) => {
 
         country.save().then(async () => {
             res.status(200).json({
-                "success": "true"
+                "success": "true",
+                "id":country.id
             })
         })
     }

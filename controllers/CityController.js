@@ -1,6 +1,4 @@
 import CityModel from "../models/City.js";
-import CountryModel from "../models/Country.js";
-import 'dotenv/config.js'
 
 
 export const createCity = async (req,res) => {
@@ -14,7 +12,8 @@ export const createCity = async (req,res) => {
 
         city.save().then(async () => {
             res.status(200).json({
-                "success": "true"
+                "success": "true",
+                "id":city.id
             })
         })
     }
@@ -57,10 +56,8 @@ export const findAllCityInCountry = async (req,res) => {
     try{
         const countryId = req.query.countryId
         let city = await CityModel.find({country:countryId})
-        console.log(`${countryId} `)
-        console.log(`${city} `)
 
-        if (city==[]) {
+        if (city=='') {
             res.status(404).json({ "message": "Error, city not found" })
         }
         else{
