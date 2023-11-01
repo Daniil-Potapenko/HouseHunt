@@ -5,6 +5,7 @@ import 'dotenv/config.js'
 import * as CountryController from "./controllers/CountryController.js"
 import * as CityController from "./controllers/CityController.js"
 import * as ResidentialComplexController from "./controllers/ResidentialComplexController.js"
+import * as ContentController from "./controllers/ContentController.js"
 import * as UserController from "./controllers/UserController.js"
 import * as PictureController from "./controllers/PictureController.js"
 import {registrationSchema, authenticationSchema, validate, getCountry_Schema, setCountry_Schema} from "./utils/Validations.js";
@@ -46,7 +47,7 @@ app.get('/data/residentialComplex', ResidentialComplexController.findResidential
 app.get('/data/allResidentialComplex', ResidentialComplexController.findAllResidentialComplexInCity)
 app.delete('/data/residentialComplex', ResidentialComplexController.deleteResidentialComplex)
 
-app.post('/data/content',  )
+app.post('/data/content',  ContentController.createContent)
 app.get('/data/content',  )
 app.get('/data/allContent', )
 app.delete('/data/Content', )
