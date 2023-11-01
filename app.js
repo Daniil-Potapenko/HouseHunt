@@ -46,6 +46,12 @@ app.get('/data/residentialComplex', ResidentialComplexController.findResidential
 app.get('/data/allResidentialComplex', ResidentialComplexController.findAllResidentialComplexInCity)
 app.delete('/data/residentialComplex', ResidentialComplexController.deleteResidentialComplex)
 
+app.post('/data/content',  )
+app.get('/data/content',  )
+app.get('/data/allContent', )
+app.delete('/data/Content', )
+
+
 app.listen(3000, (err) => {
     if (err) {
         console.log(err)
