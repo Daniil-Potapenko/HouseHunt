@@ -19,7 +19,7 @@ export const createCountry = async (req,res) => {
     catch (e) {
         res.status(500).json({
             "success": "false",
-            "message": "registration error, pls try later"
+            "message": "Error, pls try later"
         })
         console.log(e)
     }
