@@ -86,7 +86,7 @@ app.get('/data/content');
 app.get('/data/allContent');
 app.delete('/data/Content');
 
-app.listen(3000, (err) => {
+app.listen(process.env.PORT, (err) => {
   if (err) {
     console.log(err);
   } else {
