@@ -7,7 +7,7 @@
   "scripts": {
     "start:dev": "nodemon app.js",
     "lint": "npx eslint ./",
-    "lint_fix": "npx eslint ./ --fix"
+    "lint:fix": "npx eslint ./ --fix"
     
   },
   "author": "",

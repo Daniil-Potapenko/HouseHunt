@@ -67,6 +67,11 @@ export const login = async (req, res) => {
 
 
 export const checkAuth = async (req, res, next) => {
+/**
+ * Pars token from (query/cookies/headers)
+ * @param {any} req - Request.
+ * @return {any} - Return token.
+ */
   function getToken(req) {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
       return req.headers.authorization.split(' ')[1];
