@@ -35,6 +35,17 @@ export const registration = async (req, res) => {
 
 
 export const login = async (req, res) => {
+/**
+ * Generate "exp" timestamp for jwt
+ * @param {number} liveTimeInHours - Time in hours which token will be valid from current date.
+ * @return {number} tokenLiveTime -  Timestamp.
+ */
+  function getTokenTimeToLive(liveTimeInHours) {
+    const curentTimestamp = Date.now()/1000;
+    const tokenLiveTime = Math.round(curentTimestamp + liveTimeInHours*(60*60));
+    return tokenLiveTime;
+  }
+
   try {
     const user = await UserModel.findOne({'email': req.body.email});
 
@@ -47,6 +58,7 @@ export const login = async (req, res) => {
     if (passwordIsCorrect) {
       const refreshToken = jwt.sign({
         'uid': `${user._id}`,
+        'exp': getTokenTimeToLive(3),
       }, process.env.JWT_PRIVATE_KEY);
 
       res.status(200).json({
@@ -68,9 +80,9 @@ export const login = async (req, res) => {
 
 export const checkAuth = async (req, res, next) => {
 /**
- * Pars token from (query/cookies/headers)
- * @param {any} req - Request.
- * @return {any} - Return token.
+ * Try to find and return token from request (query/cookies/headers)
+ * @param {any} req - Users request.
+ * @return {any} - Return null or token(if exist).
  */
   function getToken(req) {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
