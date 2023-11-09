@@ -12,8 +12,10 @@ import {
   registrationSchema,
   authenticationSchema,
   validate,
-  findCountrySchema,
+  findCountryOrCitySchema,
   createCountrySchema,
+  createCitySchema,
+  createResidentialComplexSchema,
 } from './utils/Validations.js';
 
 const app = express();
@@ -32,6 +34,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
+
 app.use('/uploads', express.static('uploads'));
 app.post('/uploads', PictureController.upload.single('image'), UserController.checkAuth, PictureController.returnPathOfImage);
 
@@ -39,16 +42,16 @@ app.post('/user/registration', validate(registrationSchema), UserController.regi
 app.post('/user/login', validate(authenticationSchema), UserController.login);
 
 app.post('/data/country', validate(createCountrySchema), UserController.checkAuth, CountryController.createCountry);
-app.get('/data/country', validate(findCountrySchema), CountryController.findCountry);
+app.get('/data/country', validate(findCountryOrCitySchema), CountryController.findCountry);
 app.get('/data/AllCountry', CountryController.findAllCountry);
-app.delete('/data/country', validate(findCountrySchema), UserController.checkAuth, CountryController.deleteCountry);
+app.delete('/data/country', validate(findCountryOrCitySchema), UserController.checkAuth, CountryController.deleteCountry);
 
-app.post('/data/city', UserController.checkAuth, CityController.createCity);
-app.get('/data/city', CityController.findCity);
+app.post('/data/city', UserController.checkAuth, validate(createCitySchema), CityController.createCity);
+app.get('/data/city', validate(findCountryOrCitySchema), CityController.findCity);
 app.get('/data/allCity', CityController.findAllCityInCountry);
-app.delete('/data/city', UserController.checkAuth, CityController.deleteCity);
+app.delete('/data/city', validate(findCountryOrCitySchema), UserController.checkAuth, CityController.deleteCity);
 
-app.post('/data/residentialComplex', UserController.checkAuth, ResidentialComplexController.createResidentialComplex);
+app.post('/data/residentialComplex', UserController.checkAuth, validate(createResidentialComplexSchema), ResidentialComplexController.createResidentialComplex);
 app.get('/data/residentialComplex', ResidentialComplexController.findResidentialComplex);
 app.get('/data/allResidentialComplex', ResidentialComplexController.findAllResidentialComplexInCity);
 app.delete('/data/residentialComplex', UserController.checkAuth, ResidentialComplexController.deleteResidentialComplex);

@@ -1,6 +1,7 @@
 import {body, validationResult, query, oneOf} from 'express-validator';
 import UserModel from '../models/User.js';
 import CountryModel from '../models/Country.js';
+import CityModel from '../models/City.js';
 
 
 export const validate = (validations) => {
@@ -49,7 +50,7 @@ export const authenticationSchema = [
 ];
 
 
-export const findCountrySchema = [
+export const findCountryOrCitySchema = [
   query().custom(async (query) => {
     const lengthOfQuery = Object.keys(query).length;
     const maxQuerylength = 1;
@@ -74,5 +75,35 @@ export const createCountrySchema = [
           throw new Error('Country aleredy exist');
         }
       }),
+];
+
+export const createCitySchema = [
+  body('picture').isURL({host_whitelist: [`${process.env.HOSTNAME}`]}),
+  body('picture_coordinates').isArray({max: 2}),
+  body('name').isString().isLength({min: 1, max: 30})
+      .custom(async (value) => {
+        const nameExist = await CountryModel.findOne({'name': value});
+        if (nameExist) {
+          throw new Error('City aleredy exist');
+        }
+      }),
+  body('country').custom(async (value)=>{
+    const country = await CountryModel.findById(value);
+    if (!country) {
+      throw new Error('Country not found');
+    }
+  }),
+];
+
+export const createResidentialComplexSchema = [
+  body('picture').isURL({host_whitelist: [`${process.env.HOSTNAME}`]}),
+  body('picture_coordinates').isArray({max: 2}),
+  body('name').isString().isLength({min: 1, max: 30}),
+  body('city').custom(async (value)=>{
+    const city = await CityModel.findById(value);
+    if (!city) {
+      throw new Error('City not found');
+    }
+  }),
 ];
 
