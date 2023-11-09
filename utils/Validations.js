@@ -49,7 +49,7 @@ export const authenticationSchema = [
 ];
 
 
-export const findCountrySchema = [
+export const findCountryOrCitySchema = [
   query().custom(async (query) => {
     const lengthOfQuery = Object.keys(query).length;
     const maxQuerylength = 1;
@@ -74,5 +74,23 @@ export const createCountrySchema = [
           throw new Error('Country aleredy exist');
         }
       }),
+];
+
+export const createCitySchema = [
+  body('picture').isURL({host_whitelist: [`${process.env.HOSTNAME}`]}),
+  body('picture_coordinates').isArray({max: 2}),
+  body('name').isString().isLength({min: 1, max: 30})
+      .custom(async (value) => {
+        const nameExist = await CountryModel.findOne({'name': value});
+        if (nameExist) {
+          throw new Error('City aleredy exist');
+        }
+      }),
+  body('country').custom(async (value)=>{
+    const country = await CountryModel.findById(value);
+    if (!country) {
+      throw new Error('Country not found');
+    }
+  }),
 ];
 

@@ -12,7 +12,7 @@ import {
   registrationSchema,
   authenticationSchema,
   validate,
-  findCountrySchema,
+  findCountryOrCitySchema,
   createCountrySchema,
 } from './utils/Validations.js';
 
@@ -39,14 +39,14 @@ app.post('/user/registration', validate(registrationSchema), UserController.regi
 app.post('/user/login', validate(authenticationSchema), UserController.login);
 
 app.post('/data/country', validate(createCountrySchema), UserController.checkAuth, CountryController.createCountry);
-app.get('/data/country', validate(findCountrySchema), CountryController.findCountry);
+app.get('/data/country', validate(findCountryOrCitySchema), CountryController.findCountry);
 app.get('/data/AllCountry', CountryController.findAllCountry);
-app.delete('/data/country', validate(findCountrySchema), UserController.checkAuth, CountryController.deleteCountry);
+app.delete('/data/country', validate(findCountryOrCitySchema), UserController.checkAuth, CountryController.deleteCountry);
 
 app.post('/data/city', UserController.checkAuth, CityController.createCity);
-app.get('/data/city', CityController.findCity);
+app.get('/data/city', validate(findCountryOrCitySchema), CityController.findCity);
 app.get('/data/allCity', CityController.findAllCityInCountry);
-app.delete('/data/city', UserController.checkAuth, CityController.deleteCity);
+app.delete('/data/city', validate(findCountryOrCitySchema), UserController.checkAuth, CityController.deleteCity);
 
 app.post('/data/residentialComplex', UserController.checkAuth, ResidentialComplexController.createResidentialComplex);
 app.get('/data/residentialComplex', ResidentialComplexController.findResidentialComplex);
