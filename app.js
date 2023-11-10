@@ -9,7 +9,6 @@ import * as ContentController from './controllers/ContentController.js';
 import * as UserController from './controllers/UserController.js';
 import * as PictureController from './controllers/PictureController.js';
 import {
-  registrationSchema,
   authenticationSchema,
   validate,
   findCountryOrCitySchema,
@@ -38,12 +37,10 @@ app.use((err, req, res, next) => {
 app.use('/uploads', express.static('uploads'));
 app.post('/uploads', PictureController.upload.single('image'), UserController.checkAuth, PictureController.returnPathOfImage);
 
-app.post('/user/registration', validate(registrationSchema), UserController.registration);
 app.post('/user/login', validate(authenticationSchema), UserController.login);
 
 app.post('/data/country', validate(createCountrySchema), UserController.checkAuth, CountryController.createCountry);
 app.get('/data/country', validate(findCountryOrCitySchema), CountryController.findCountry);
-app.get('/data/AllCountry', CountryController.findAllCountry);
 app.delete('/data/country', validate(findCountryOrCitySchema), UserController.checkAuth, CountryController.deleteCountry);
 
 app.post('/data/city', UserController.checkAuth, validate(createCitySchema), CityController.createCity);
