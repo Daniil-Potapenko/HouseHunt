@@ -8,7 +8,7 @@
 - MongoDB
 - Multer
 - bcrypt
-- 
+  
 
 ## Установка и запуск
 
@@ -27,11 +27,11 @@ cp .env.example .env
 ```
 
 Отредактируйте файл `.env` и заполните необходимые значения:
-1)DATABASEURL  - url for connection to mongodb
-2)HOSTNAME  - hostname
-3)PORT - port
-4)BCRYPT_SALT_ROUNDS - rounds of salt for bcrypt
-5)JWT_PRIVATE_KEY - your secret key
+- DATABASEURL  - url for connection to mongodb
+- HOSTNAME  - hostname
+- PORT - port
+- BCRYPT_SALT_ROUNDS - rounds of salt for bcrypt
+- JWT_PRIVATE_KEY - your secret key
 
 
 1. Запустите приложение:
