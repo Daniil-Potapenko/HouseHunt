@@ -22,8 +22,8 @@ npm install
 1. Настройте переменные окружения:
 
 ```bash
-cp .env.example .env
-
+npm i dotenv
+touch .env   
 ```
 
 Отредактируйте файл `.env` и заполните необходимые значения:
