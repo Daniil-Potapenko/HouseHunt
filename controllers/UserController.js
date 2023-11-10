@@ -4,34 +4,34 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
-export const registration = async (req, res) => {
-  try {
-    const hash = bcrypt.hash(req.body.password, Number(process.env.BCRYPT_SALT_ROUNDS));
-    const user = new UserModel({
-      'fullName': req.body.fullName,
-      'email': req.body.email,
-      'passwordHash': await hash,
-    });
+// export const registration = async (req, res) => {
+//   try {
+//     const hash = bcrypt.hash(req.body.password, Number(process.env.BCRYPT_SALT_ROUNDS));
+//     const user = new UserModel({
+//       'fullName': req.body.fullName,
+//       'email': req.body.email,
+//       'passwordHash': await hash,
+//     });
 
-    user.save().then(async () => {
-      res.status(200).json({
-        'success': 'true',
-      });
-    }).catch((e) => {
-      res.status(500).json({
-        'success': 'false',
-        'message': 'registration error, pls try later',
-      });
-      console.log(e);
-    });
-  } catch (e) {
-    res.status(500).json({
-      'success': 'false',
-      'message': 'registration error, pls try later',
-    });
-    console.log(e);
-  }
-};
+//     user.save().then(async () => {
+//       res.status(200).json({
+//         'success': 'true',
+//       });
+//     }).catch((e) => {
+//       res.status(500).json({
+//         'success': 'false',
+//         'message': 'registration error, pls try later',
+//       });
+//       console.log(e);
+//     });
+//   } catch (e) {
+//     res.status(500).json({
+//       'success': 'false',
+//       'message': 'registration error, pls try later',
+//     });
+//     console.log(e);
+//   }
+// };
 
 
 export const login = async (req, res) => {

@@ -3,7 +3,6 @@ import UserModel from '../models/User.js';
 import CountryModel from '../models/Country.js';
 import CityModel from '../models/City.js';
 
-
 export const validate = (validations) => {
   return async (req, res, next) => {
     for (const validation of validations) {
@@ -49,19 +48,24 @@ export const authenticationSchema = [
   body('email').isEmail(),
 ];
 
-
+/**
+ *Alows only query "id","name", or null
+ */
 export const findCountryOrCitySchema = [
   query().custom(async (query) => {
-    const lengthOfQuery = Object.keys(query).length;
-    const maxQuerylength = 1;
-
-    if (lengthOfQuery > maxQuerylength) {
+    if (Object.keys(query).length>1) {
       throw new Error('Invalid query');
     }
   }),
   oneOf([
     [query('id').isMongoId()],
-    [query('name').isString().isLength({max: 30})],
+    [query('name').isString().isLength({max: 30, min: 2})],
+    [query('countryId').isMongoId()],
+    [query().custom(async (query) => {
+      if (Object.keys(query).length>0) {
+        throw new Error('Invalid query');
+      }
+    })],
   ]),
 ];
 

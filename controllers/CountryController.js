@@ -31,8 +31,9 @@ export const findCountry = async (req, res) => {
 
     countryName ?
       country = await CountryModel.findOne({'name': countryName}) :
-      countryId ?
-        country = await CountryModel.findById(countryId) : {};
+    countryId ?
+      country = await CountryModel.findById(countryId) :
+      country = await CountryModel.find();
 
     if (!country) {
       res.status(404).json({'message': 'Error, country not found'});
@@ -47,23 +48,7 @@ export const findCountry = async (req, res) => {
     console.log(e);
   }
 };
-export const findAllCountry = async (req, res) => {
-  try {
-    const countrys = await CountryModel.find({});
 
-    if (countrys == []) {
-      res.status(404).json({'message': 'Error, countrys not found'});
-    } else {
-      res.status(200).json(countrys);
-    }
-  } catch (e) {
-    res.status(500).json({
-      'success': 'false',
-      'message': 'Error, pls try later',
-    });
-    console.log(e);
-  }
-};
 export const deleteCountry = async (req, res) => {
   try {
     const countryName = req.query.name;
