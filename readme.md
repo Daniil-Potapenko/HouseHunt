@@ -23,9 +23,11 @@ npm install
 
 ```bash
 npm i dotenv
-touch .env   
 ```
-
+```bash
+touch .env  
+```
+ 
 Отредактируйте файл `.env` и заполните необходимые значения:
 - DATABASEURL  - url for connection to mongodb
 - HOSTNAME  - hostname
