@@ -4,24 +4,13 @@
 
 - Node.js
 - Express.js
+- express-validator
 - MongoDB
 - Multer
+- bcrypt
+- 
 
 ## Установка и запуск
-
-1. Склонируйте репозиторий:
-
-```bash
-git clone <https://github.com/your-repository.git>
-
-```
-
-1. Перейдите в папку проекта:
-
-```bash
-cd your-repository
-
-```
 
 1. Установите зависимости:
 
@@ -37,7 +26,13 @@ cp .env.example .env
 
 ```
 
-Отредактируйте файл `.env` и заполните необходимые значения.
+Отредактируйте файл `.env` и заполните необходимые значения:
+1)DATABASEURL  - url for connection to mongodb
+2)HOSTNAME  - hostname
+3)PORT - port
+4)BCRYPT_SALT_ROUNDS - rounds of salt for bcrypt
+5)JWT_PRIVATE_KEY - your secret key
+
 
 1. Запустите приложение:
 
