@@ -60,6 +60,7 @@ export const findCountryOrCitySchema = [
   oneOf([
     [query('id').isMongoId()],
     [query('name').isString().isLength({max: 30, min: 2})],
+    [query('countryId').isMongoId()],
     [query().custom(async (query) => {
       if (Object.keys(query).length>0) {
         throw new Error('Invalid query');

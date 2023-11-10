@@ -27,17 +27,15 @@ export const findResidentialComplex = async (req, res) => {
   try {
     const residentialComplexName = req.query.name;
     const residentialComplexId = req.query.id;
+    const cityId = req.query.cityId;
     let residentialComplex;
 
     residentialComplexName ?
-      (residentialComplex = await ResidentialComplexModel.findOne({
-        name: residentialComplexName,
-      }).populate('city')) :
-      residentialComplexId ?
-        (residentialComplex = await ResidentialComplexModel.findById(
-            residentialComplexId,
-        ).populate('city')) :
-        {};
+      residentialComplex = await ResidentialComplexModel.findOne({name: residentialComplexName}).populate('city') :
+    residentialComplexId ?
+      residentialComplex = await ResidentialComplexModel.findById(residentialComplexId).populate('city') :
+    cityId ?
+      residentialComplex = await ResidentialComplexModel.find({city: cityId}) : {};
 
     if (!residentialComplex) {
       res.status(404).json({message: 'Error, residentialComplex not found'});
@@ -52,26 +50,26 @@ export const findResidentialComplex = async (req, res) => {
     console.log(e);
   }
 };
-export const findAllResidentialComplexInCity = async (req, res) => {
-  try {
-    const cityId = req.query.cityId;
-    const residentialComplex = await ResidentialComplexModel.find({
-      city: cityId,
-    });
+// export const findAllResidentialComplexInCity = async (req, res) => {
+//   try {
+//     const cityId = req.query.cityId;
+//     const residentialComplex = await ResidentialComplexModel.find({
+//       city: cityId,
+//     });
 
-    if (residentialComplex == '') {
-      res.status(404).json({message: 'Error, residentialComplex not found'});
-    } else {
-      res.status(200).json(residentialComplex);
-    }
-  } catch (e) {
-    res.status(500).json({
-      success: 'false',
-      message: 'Error, pls try later',
-    });
-    console.log(e);
-  }
-};
+//     if (residentialComplex == '') {
+//       res.status(404).json({message: 'Error, residentialComplex not found'});
+//     } else {
+//       res.status(200).json(residentialComplex);
+//     }
+//   } catch (e) {
+//     res.status(500).json({
+//       success: 'false',
+//       message: 'Error, pls try later',
+//     });
+//     console.log(e);
+//   }
+// };
 export const deleteResidentialComplex = async (req, res) => {
   try {
     const residentialComplexName = req.query.name;

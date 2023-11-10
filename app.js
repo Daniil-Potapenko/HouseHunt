@@ -45,12 +45,10 @@ app.delete('/data/country', validate(findCountryOrCitySchema), UserController.ch
 
 app.post('/data/city', UserController.checkAuth, validate(createCitySchema), CityController.createCity);
 app.get('/data/city', validate(findCountryOrCitySchema), CityController.findCity);
-app.get('/data/allCity', CityController.findAllCityInCountry);
 app.delete('/data/city', validate(findCountryOrCitySchema), UserController.checkAuth, CityController.deleteCity);
 
 app.post('/data/residentialComplex', UserController.checkAuth, validate(createResidentialComplexSchema), ResidentialComplexController.createResidentialComplex);
 app.get('/data/residentialComplex', ResidentialComplexController.findResidentialComplex);
-app.get('/data/allResidentialComplex', ResidentialComplexController.findAllResidentialComplexInCity);
 app.delete('/data/residentialComplex', UserController.checkAuth, ResidentialComplexController.deleteResidentialComplex);
 
 app.post('/data/content', UserController.checkAuth, ContentController.createContent);
