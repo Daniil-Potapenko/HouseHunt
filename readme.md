@@ -37,7 +37,7 @@ cp .env.example .env
 1. Запустите приложение:
 
 ```bash
-npm start
+npm run start:dev 
 
 ```
 
